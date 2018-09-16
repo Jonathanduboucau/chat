@@ -1,6 +1,7 @@
 import React, { Component, Children } from "react";
 import { TextField, ListItemText } from "@material-ui/core";
 import firebase, { Config } from "./db.component/firebase.jsx";
+import * as ReactDOM from "react-dom";
 
 import "./style/app.css";
 
@@ -25,6 +26,9 @@ const app = {
   },
   positionTextField: {
     marginBottom: "0"
+  },
+  container: {
+    overflowY: "auto"
   }
 };
 
@@ -42,6 +46,10 @@ class App extends Component {
   componentDidMount() {
     <Config />;
     this.getMessages();
+  }
+
+  componentDidUpdate() {
+    window.scrollTo(0,document.body.scrollHeight);
   }
 
   onSubmit = event => {
