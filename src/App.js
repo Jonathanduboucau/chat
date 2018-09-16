@@ -24,8 +24,7 @@ const app = {
     boxShadow: "0 0 15px black"
   },
   positionTextField: {
-    marginBottom: "0",
-    display: "flex"
+    marginBottom: "0"
   }
 };
 
@@ -61,7 +60,7 @@ class App extends Component {
       .database()
       .ref("messages/")
       .push({
-        text: message, 
+        text: message,
         pseudo: this.state.pseudo
       });
   };
@@ -72,8 +71,11 @@ class App extends Component {
       let newMessages = [];
       snapshot.forEach(child => {
         let message = child.val();
-        let pseudo = child.val();
-        newMessages.push({ id: child.key, text: message.text, pseudo: message.pseudo });
+        newMessages.push({
+          id: child.key,
+          text: message.text,
+          pseudo: message.pseudo
+        });
       });
       this.setState({ messages: newMessages, loading: false });
     });
@@ -83,9 +85,8 @@ class App extends Component {
     return this.state.messages.map(message => (
       <ListItemText>
         <div className="textMessages" style={{ fontWeight: "bold" }}>
-          {message.pseudo} a dit : 
-        </div>
-        {message.text}
+          {message.pseudo} a dit :</div><i>{message.text}</i>
+        
       </ListItemText>
     ));
   };
@@ -110,9 +111,8 @@ class App extends Component {
             />
           </div>
         </header>
-        {this.renderMessages()}
+        <div style={app.container}>{this.renderMessages()}</div>
         <TextField
-          style={app.positionTextField}
           autoFocus={true}
           multiline={true}
           fullWidth
