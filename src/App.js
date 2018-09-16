@@ -5,7 +5,9 @@ import {
 } from "@material-ui/core";
 import firebase from "firebase";
 
-const header = {
+import "./style/app.css";
+
+const app = {
   spanH1: {
     fontSize: "2.5em",
     fontFamily: "Arial, sans-serif",
@@ -23,6 +25,10 @@ const header = {
     paddingLeft: "10px",
     backgroundColor: "rgba(0,0,0,0.5)",
     boxShadow: "0 0 15px black"
+  },
+  positionTextField: {
+    marginBottom: "0",
+    display: "flex"
   }
 };
 
@@ -30,7 +36,7 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { text: "", messages: [] };
+    this.state = { pseudo: "", text: "", messages: [] };
   }
 
   componentDidMount() {
@@ -76,20 +82,22 @@ class App extends Component {
 
   renderMessages = () => {
     return this.state.messages.map(message => (
-      <ListItemText>{message.text}</ListItemText>
+      <ListItemText><div className="textMessages" style={{fontWeight: "bold", }}>Utilisateur lambda a dit : </div>{message.text}</ListItemText>
     ));
   };
   render() {
     return (
       <div className="App">
-        <header style={header.positionHeader} className="App-header">
-          <span style={header.spanH1}>Chat Living Room</span>
-          <span style={header.span}>Made with <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/A_perfect_SVG_heart.svg/2000px-A_perfect_SVG_heart.svg.png" alt="heart" style={{width: "15px"}} /> by Jonathanduboucau</span>
+        <header style={app.positionHeader} className="App-header">
+          <span style={app.spanH1}>Chat Living Room</span>
+          <span style={app.span}>Made with <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/A_perfect_SVG_heart.svg/2000px-A_perfect_SVG_heart.svg.png" alt="heart" style={{width: "15px"}} /> by Jonathanduboucau</span>
+          <div><TextField placeholder="Pseudonyme" /></div>
         </header>
           {this.renderMessages()}
           <TextField
+            style={app.positionTextField}
             autoFocus={true}
-            multiline={false}
+            multiline={true}
             fullWidth
             rowsMax={3}
             placeholder="Message ..."
