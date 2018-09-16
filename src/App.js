@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { TextField, ListItemText, List } from "@material-ui/core";
+import React, { Component, Children } from "react";
+import { TextField, ListItemText } from "@material-ui/core";
 import firebase, { Config } from "./db.component/firebase.jsx";
 
 import "./style/app.css";
@@ -24,8 +24,7 @@ const app = {
     boxShadow: "0 0 15px black"
   },
   positionTextField: {
-    marginBottom: "0",
-    lineHeigth: "1px"
+    marginBottom: "0"
   }
 };
 
@@ -49,21 +48,41 @@ class App extends Component {
     if (
       event.charCode === 13 &&
       this.state.text.trim() !== "" &&
-      this.state.pseudo !== "" && this.state.pseudo.length >= 3
+      this.state.pseudo !== "" &&
+      this.state.pseudo.length >= 3
     ) {
       this.writeMessageToDB(this.state.text);
       this.setState({ text: "", pseudo: this.state.pseudo });
     } else {
-      if(this.state.pseudo === 1 && this.state.message.length <= 0 && event.charCode === 13) {
-        alert('Attention ! Tu ne peux pas envoyer de message vide. Quel est l\'intérêt ?!');
-        console.log(this.state.pseudo)
-      }
-      if(this.state.pseudo !== 1 && event.charCode === 13) {
-        alert('Attention ! Tu ne peux pas envoyer de message sans avoir défini de pseudo. Sinon, ça serait de la triche ! ;)');
+      if (
+        this.state.pseudo.length >= 3 &&
+        this.state.text === "" &&
+        event.charCode === 13
+      ) {
+        alert(
+          "Attention ! Tu ne peux pas envoyer de message vide. Quel est l'intérêt ?!"
+        );
         return event;
       }
-      if(this.state.message !== 1 && event.charCode === 13) {
-        alert('Attention ! Tu ne peux pas envoyer de message vide. Quel est l\'intérêt ?!');
+      if (
+        this.state.text.length >= 3 &&
+        this.state.pseudo.length <= 0 &&
+        event.charCode === 13
+      ) {
+        alert(
+          "Attention ! Tu ne peux pas envoyer de message sans pseudo, sinon ça serait de la triche ! ;)"
+        );
+        this.setState({ text: this.state.text });
+      }
+      if (
+        this.state.text.length === 0 &&
+        this.state.pseudo.length === 0 &&
+        event.charCode === 13
+      ) {
+        alert(
+          "Attention ! Tu ne peux pas envoyer de message sans pseudo ainsi qu'avec un message vide. Quel est l'intérêt ?!"
+        );
+        return event;
       }
     }
   };
@@ -96,10 +115,12 @@ class App extends Component {
 
   renderMessages = () => {
     return this.state.messages.map(message => (
-      <List style={ {lineHeight: "5px"} } >
+      <ListItemText key={message.id} style={{ lineHeight: "5px" }}>
         <div className="textMessages" style={{ fontWeight: "bold" }}>
-          {message.pseudo} a dit :</div><i>{message.text}</i>
-      </List>
+          {message.pseudo} a dit :
+        </div>
+        <i>{message.text}</i>
+      </ListItemText>
     ));
   };
 
@@ -127,7 +148,7 @@ class App extends Component {
         <div style={app.container}>{this.renderMessages()}</div>
         <TextField
           autoFocus={true}
-          multiline={true}
+          multiline={false}
           fullWidth
           rowsMax={3}
           placeholder="Message ..."
