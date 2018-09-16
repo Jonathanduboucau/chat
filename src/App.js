@@ -1,7 +1,7 @@
-import React, { Component, Children } from "react";
+import React, { Component} from "react";
 import { TextField, ListItemText } from "@material-ui/core";
-import firebase, { Config } from "./db.component/firebase.jsx";
-import * as ReactDOM from "react-dom";
+import firebase from "./db.component/firebase.jsx";
+import Footer from "./footer.component/footer.jsx";
 
 import "./style/app.css";
 
@@ -44,7 +44,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    <Config />;
     this.getMessages();
   }
 
@@ -123,7 +122,7 @@ class App extends Component {
 
   renderMessages = () => {
     return this.state.messages.map(message => (
-      <ListItemText key={message.id} style={{ lineHeight: "5px" }}>
+      <ListItemText key={message.id} style={{ lineHeight: "5px" }} >
         <div className="textMessages" style={{ fontWeight: "bold" }}>
           {message.pseudo} a dit :
         </div>
@@ -164,6 +163,7 @@ class App extends Component {
           value={this.state.text}
           onKeyPress={this.onSubmit}
         />
+        {/* <Footer /> */}
       </div>
     );
   }
