@@ -1,4 +1,4 @@
-import React, { Component} from "react";
+import React, { Component } from "react";
 import { TextField, ListItemText } from "@material-ui/core";
 import firebase from "./db.component/firebase.jsx";
 import Footer from "./footer.component/footer.jsx";
@@ -27,8 +27,8 @@ const app = {
   positionTextField: {
     marginBottom: "0"
   },
-  container: {
-    overflowY: "auto"
+  footer: {
+    display: "inline"
   }
 };
 
@@ -48,7 +48,7 @@ class App extends Component {
   }
 
   componentDidUpdate() {
-    window.scrollTo(0,document.body.scrollHeight);
+    window.scrollTo(0, document.body.scrollHeight);
   }
 
   onSubmit = event => {
@@ -122,7 +122,7 @@ class App extends Component {
 
   renderMessages = () => {
     return this.state.messages.map(message => (
-      <ListItemText key={message.id} style={{ lineHeight: "5px" }} >
+      <ListItemText key={message.id} style={{ lineHeight: "5px" }}>
         <div className="textMessages" style={{ fontWeight: "bold" }}>
           {message.pseudo} a dit :
         </div>
@@ -163,7 +163,7 @@ class App extends Component {
           value={this.state.text}
           onKeyPress={this.onSubmit}
         />
-        {/* <Footer /> */}
+        <Footer />
       </div>
     );
   }
