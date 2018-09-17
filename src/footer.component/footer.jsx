@@ -25,9 +25,10 @@ class Footer extends Component {
     return (
       <div
         style={{
-          textAlign: "center",
+          margin: "auto",
           display: "inline-flex",
-          float: "right"
+          float: "right",
+          bottom: "0"
         }}
       >
         {this.state.list.map((list, i) => (

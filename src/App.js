@@ -22,14 +22,20 @@ const app = {
     textAlign: "left",
     paddingLeft: "10px",
     backgroundColor: "rgba(0,0,0,0.5)",
-    boxShadow: "0 0 15px black"
   },
   positionTextField: {
-    marginBottom: "0"
+    marginBottom: "0",
+    position: "absolute"
   },
-  footer: {
-    display: "inline"
-  }
+  container: {
+    width: "70%",
+    border: "solid 1px rgba(0,0,0,0.1)",
+    margin: "20px auto",
+    backgroundColor: "beige",
+    padding: "10px",
+    height: "70vh",
+    overflow: "auto"
+  },
 };
 
 class App extends Component {
@@ -47,9 +53,9 @@ class App extends Component {
     this.getMessages();
   }
 
-  componentDidUpdate() {
-    window.scrollTo(0, document.body.scrollHeight);
-  }
+  // componentDidUpdate() {
+  //   this.getMessages();
+  // }
 
   onSubmit = event => {
     if (
@@ -152,7 +158,7 @@ class App extends Component {
             />
           </div>
         </header>
-        <div style={app.container}>{this.renderMessages()}</div>
+        <div style={app.container} className="container">{this.renderMessages().reverse()}</div>
         <TextField
           autoFocus={true}
           multiline={false}
