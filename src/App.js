@@ -132,9 +132,9 @@ class App extends Component {
     return this.state.messages.map(message => (
       <ListItemText key={message.id} style={{ lineHeight: "5px" }}>
         <div className="textMessages">
-          <i style={{color: "grey"}}>{message.time} </i>{message.pseudo} a dit :
+          <i style={{color: "grey"}}>{message.time} </i><b>{message.pseudo}</b> a dit :
         </div>
-        <i>{message.text}</i>
+        <span> {message.text}</span>
       </ListItemText>
     ));
   };
