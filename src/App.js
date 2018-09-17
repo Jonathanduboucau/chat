@@ -119,7 +119,8 @@ class App extends Component {
         newMessages.push({
           id: child.key,
           text: message.text,
-          pseudo: message.pseudo
+          pseudo: message.pseudo,
+          time: new Date(Date.now()).toLocaleString()
         });
       });
       this.setState({ messages: newMessages, loading: false });
@@ -129,8 +130,8 @@ class App extends Component {
   renderMessages = () => {
     return this.state.messages.map(message => (
       <ListItemText key={message.id} style={{ lineHeight: "5px" }}>
-        <div className="textMessages" style={{ fontWeight: "bold" }}>
-          {message.pseudo} a dit :
+        <div className="textMessages">
+          <i style={{color: "grey"}}>{message.time} </i>{message.pseudo} a dit :
         </div>
         <i>{message.text}</i>
       </ListItemText>
