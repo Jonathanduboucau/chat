@@ -106,7 +106,8 @@ class App extends Component {
       .ref("messages/")
       .push({
         text: message,
-        pseudo: this.state.pseudo
+        pseudo: this.state.pseudo,
+        time: new Date(Date.now()).toLocaleString()
       });
   };
 
@@ -120,7 +121,7 @@ class App extends Component {
           id: child.key,
           text: message.text,
           pseudo: message.pseudo,
-          time: new Date(Date.now()).toLocaleString()
+          time: message.time
         });
       });
       this.setState({ messages: newMessages, loading: false });
