@@ -21,21 +21,20 @@ const app = {
   positionHeader: {
     textAlign: "left",
     paddingLeft: "10px",
-    backgroundColor: "rgba(0,0,0,0.5)",
+    backgroundColor: "rgba(0,0,0,0.5)"
   },
   positionTextField: {
-    marginBottom: "0",
-    position: "absolute"
+    marginBottom: "0"
   },
   container: {
     width: "70%",
     border: "solid 1px rgba(0,0,0,0.1)",
-    margin: "20px auto",
+    margin: "20px",
     backgroundColor: "beige",
     padding: "10px",
     height: "70vh",
     overflow: "auto"
-  },
+  }
 };
 
 class App extends Component {
@@ -132,7 +131,8 @@ class App extends Component {
     return this.state.messages.map(message => (
       <ListItemText key={message.id} style={{ lineHeight: "5px" }}>
         <div className="textMessages">
-          <i style={{color: "grey"}}>{message.time} </i><b>{message.pseudo}</b> a dit :
+          <i style={{ color: "grey" }}>{message.time} </i>
+          <b>{message.pseudo}</b> a dit :
         </div>
         <span> {message.text}</span>
       </ListItemText>
@@ -153,14 +153,27 @@ class App extends Component {
             />
             by Jonathanduboucau
           </span>
-          <div>
+        </header>
+        <div className={{ display: "inline-block"}}>
+          <div
+            style={{
+              float: "left",
+              marginLeft: "10px",
+              textAlign: "center",
+              backgroundColor: "beige",
+              border: "solid 1px rgba(0,0,0,0.1)",
+            }}
+          >
             <TextField
+              label="Pseudonyme"
               placeholder="Pseudonyme"
               onChange={event => this.setState({ pseudo: event.target.value })}
             />
           </div>
-        </header>
-        <div style={app.container} className="container">{this.renderMessages().reverse()}</div>
+          <div style={app.container} className="container">
+            {this.renderMessages().reverse()}
+          </div>
+        </div>
         <TextField
           autoFocus={true}
           multiline={false}
