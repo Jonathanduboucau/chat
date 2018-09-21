@@ -19,7 +19,8 @@ class Footer extends Component {
       link: [
         "https://github.com/Jonathanduboucau",
         "https://www.linkedin.com/in/jonathan-domingues/"
-      ]
+      ],
+      img: ["https://cdn1.iconfinder.com/data/icons/logotypes/32/github-512.png","https://cdn1.iconfinder.com/data/icons/logotypes/32/square-linkedin-512.png"]
     });
   }
 
@@ -28,11 +29,13 @@ class Footer extends Component {
       <div style={foo.container}>
         <div style={foo}>
           {this.state.list.map((list, i) => (
-            <ListItem key={i}>
-              <a href={this.state.link[i]} style={foo.href}>
-                {list}
-              </a>
-            </ListItem>
+            <ul>
+              <ListItem key={i}>
+                <a href={this.state.link[i]} style={foo.href}>
+                  <img src={this.state.img[i]} width={25} /> {list}
+                </a>
+              </ListItem>
+            </ul>
           ))}
         </div>
       </div>

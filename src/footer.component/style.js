@@ -1,5 +1,5 @@
 const foo = {
-  display: "flex",
+  display: "list-item",
   textAlign: "center",
   fontSize: "18px",
   backgroundColor: "lightgrey",
@@ -7,7 +7,8 @@ const foo = {
   margin: "50px 0 0 0",
   backgroundColor: "lightGrey",
   href: {
-    textDecoration: "none"
+    textDecoration: "none",
+    textAlign: "right"
   },
   container: {
     width: "100%",

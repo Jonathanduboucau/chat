@@ -23,7 +23,7 @@ class Chat extends Component {
         <div className="textMessages" style={{display: "block"}}>
           <i style={{ color: "grey" }}>{message.time} </i>
         </div>
-        <b>{message.pseudo}</b> a dit :<span title={message.pseudo}> {message.text}</span>
+        <b>{message.pseudo}</b> a dit :<span title={message.pseudo}> {message.text}</span><hr />
       </ListItemText>
     ));
   };
