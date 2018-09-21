@@ -30,7 +30,7 @@ class Footer extends Component {
         <div style={foo}>
           {this.state.list.map((list, i) => (
               <ListItem key={i}>
-                <a href={this.state.link[i]} style={foo.href}>
+                <a href={this.state.link[i]} style={foo.href} target="_blank">
                   <img src={this.state.img[i]} width={25} /> {list}
                 </a>
               </ListItem>

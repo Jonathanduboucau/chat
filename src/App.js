@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import firebase from "./db.component/firebase.jsx";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import Header from "./header.component/header.jsx";
+import Sign from "./pages/login.jsx";
 import Chat from "./chat.component/chat.jsx";
 import Footer from "./footer.component/footer.jsx";
 import "./style/app.css";
@@ -47,7 +49,15 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header />
+        <BrowserRouter>
+          <div>
+            <Header />
+            <Switch>
+              <Route exact path="/" />
+              <Route exact path="/sign" />
+            </Switch>
+          </div>
+        </BrowserRouter>
         <Chat
           clearText={this.clearText}
           message={this.state.messages}

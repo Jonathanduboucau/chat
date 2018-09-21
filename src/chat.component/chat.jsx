@@ -6,6 +6,21 @@ import "./chat.css";
 import { app, input } from "./style.js";
 
 class Chat extends Component {
+  componentDidMount() {
+    this.scrollToBottom();
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom() {
+    const scrollHeight = this.el.scrollHeight;
+    const height = this.el.clientHeight;
+    const maxScrollTop = scrollHeight - height;
+    this.el.scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
+  }
+
   writeMessageToDB = message => {
     firebase
       .database()
@@ -13,17 +28,22 @@ class Chat extends Component {
       .push({
         text: message,
         pseudo: this.props.pseudoR,
-        time: new Date(Date.now()).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+        time: new Date(Date.now()).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit"
+        })
       });
   };
 
   renderMessages = () => {
     return this.props.message.map(message => (
       <ListItemText key={message.id} style={{ lineHeight: "5px" }}>
-        <div className="textMessages" style={{display: "block"}}>
+        <div className="textMessages" style={{ display: "block" }}>
           <i style={{ color: "grey" }}>{message.time} </i>
         </div>
-        <b>{message.pseudo}</b> a dit :<span title={message.pseudo}> {message.text}</span><hr />
+        <b>{message.pseudo}</b> a dit :
+        <span title={message.pseudo}> {message.text}</span>
+        <hr />
       </ListItemText>
     ));
   };
@@ -73,7 +93,13 @@ class Chat extends Component {
   render() {
     return (
       <div style={{ margin: "auto" }}>
-        <div style={app.container} className="container">
+        <div
+          style={app.container}
+          className="container"
+          ref={el => {
+            this.el = el;
+          }}
+        >
           {this.renderMessages()}
         </div>
         <div style={app.input}>

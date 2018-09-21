@@ -1,8 +1,20 @@
 import React, { Component } from "react";
+import { slide as MyMenu } from "react-burger-menu";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
+import "./menu.css";
 import { img, app } from "./style.js";
+import burger from "../img/burger.svg";
 
 class Header extends Component {
+  state = {
+    menuOpen: false
+  };
+
+  handleClick = () => {
+    this.setState({ menuOpen: false });
+  };
+
   render() {
     return (
       <div>
@@ -17,6 +29,19 @@ class Header extends Component {
             />
             by Jonathanduboucau
           </span>
+          <MyMenu
+            right
+            className="menu"
+            isOpen={this.state.menuOpen}
+            customBurgerIcon={<img src={burger} alt="menu-burger-svg" />}
+          >
+            <Link to="/" onClick={this.handleClick}>
+              Chat
+            </Link>
+            <Link to="/sign" onClick={this.handleClick}>
+              Connexion
+            </Link>
+          </MyMenu>
         </header>
       </div>
     );
