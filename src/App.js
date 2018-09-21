@@ -1,41 +1,10 @@
 import React, { Component } from "react";
-import { TextField, ListItemText } from "@material-ui/core";
 import firebase from "./db.component/firebase.jsx";
+
+import Header from "./header.component/header.jsx";
+import Chat from "./chat.component/chat.jsx";
 import Footer from "./footer.component/footer.jsx";
-
 import "./style/app.css";
-
-const app = {
-  spanH1: {
-    fontSize: "2.5em",
-    fontFamily: "Arial, sans-serif",
-    textShadow: "0 0 2px white",
-    fontWeight: "bold",
-    margin: "0",
-    padding: "10px 0"
-  },
-  span: {
-    display: "inline",
-    marginLeft: "5px"
-  },
-  positionHeader: {
-    textAlign: "left",
-    paddingLeft: "10px",
-    backgroundColor: "rgba(0,0,0,0.5)"
-  },
-  positionTextField: {
-    marginBottom: "0"
-  },
-  container: {
-    width: "70%",
-    border: "solid 1px rgba(0,0,0,0.1)",
-    margin: "20px",
-    backgroundColor: "beige",
-    padding: "10px",
-    height: "70vh",
-    overflow: "auto"
-  }
-};
 
 class App extends Component {
   constructor(props) {
@@ -46,69 +15,17 @@ class App extends Component {
       text: "",
       messages: []
     };
+
+    this.clearText = this.clearText.bind(this);
+  }
+
+  clearText(clear) {
+    this.setState({ text: "", pseudo: this.state.pseudo });
   }
 
   componentDidMount() {
     this.getMessages();
   }
-
-  // componentDidUpdate() {
-  //   this.getMessages();
-  // }
-
-  onSubmit = event => {
-    if (
-      event.charCode === 13 &&
-      this.state.text.trim() !== "" &&
-      this.state.pseudo !== "" &&
-      this.state.pseudo.length >= 3
-    ) {
-      this.writeMessageToDB(this.state.text);
-      this.setState({ text: "", pseudo: this.state.pseudo });
-    } else {
-      if (
-        this.state.pseudo.length >= 3 &&
-        this.state.text === "" &&
-        event.charCode === 13
-      ) {
-        alert(
-          "Attention ! Tu ne peux pas envoyer de message vide. Quel est l'intérêt ?!"
-        );
-        return event;
-      }
-      if (
-        this.state.text.length >= 3 &&
-        this.state.pseudo.length <= 0 &&
-        event.charCode === 13
-      ) {
-        alert(
-          "Attention ! Tu ne peux pas envoyer de message sans pseudo, sinon ça serait de la triche ! ;)"
-        );
-        this.setState({ text: this.state.text });
-      }
-      if (
-        this.state.text.length === 0 &&
-        this.state.pseudo.length === 0 &&
-        event.charCode === 13
-      ) {
-        alert(
-          "Attention ! Tu ne peux pas envoyer de message sans pseudo ainsi qu'avec un message vide. Quel est l'intérêt ?!"
-        );
-        return event;
-      }
-    }
-  };
-
-  writeMessageToDB = message => {
-    firebase
-      .database()
-      .ref("messages/")
-      .push({
-        text: message,
-        pseudo: this.state.pseudo,
-        time: new Date(Date.now()).toLocaleString()
-      });
-  };
 
   getMessages = () => {
     let messagesDB = firebase.database().ref(`messages/`);
@@ -123,66 +40,23 @@ class App extends Component {
           time: message.time
         });
       });
-      this.setState({ messages: newMessages, loading: false });
+      this.setState({ messages: newMessages });
     });
-  };
-
-  renderMessages = () => {
-    return this.state.messages.map(message => (
-      <ListItemText key={message.id} style={{ lineHeight: "5px" }}>
-        <div className="textMessages">
-          <i style={{ color: "grey" }}>{message.time} </i>
-          <b>{message.pseudo}</b> a dit :
-        </div>
-        <span> {message.text}</span>
-      </ListItemText>
-    ));
   };
 
   render() {
     return (
       <div className="App">
-        <header style={app.positionHeader} className="App-header">
-          <span style={app.spanH1}>Chat Living Room</span>
-          <span style={app.span}>
-            Made with
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/A_perfect_SVG_heart.svg/2000px-A_perfect_SVG_heart.svg.png"
-              alt="heart"
-              style={{ width: "15px" }}
-            />
-            by Jonathanduboucau
-          </span>
-        </header>
-        <div className={{ display: "inline-block"}}>
-          <div
-            style={{
-              float: "left",
-              marginLeft: "10px",
-              textAlign: "center",
-              backgroundColor: "beige",
-              border: "solid 1px rgba(0,0,0,0.1)",
-            }}
-          >
-            <TextField
-              label="Pseudonyme"
-              placeholder="Pseudonyme"
-              onChange={event => this.setState({ pseudo: event.target.value })}
-            />
-          </div>
-          <div style={app.container} className="container">
-            {this.renderMessages().reverse()}
-          </div>
-        </div>
-        <TextField
-          autoFocus={true}
-          multiline={false}
-          fullWidth
-          rowsMax={3}
-          placeholder="Message ..."
-          onChange={event => this.setState({ text: event.target.value })}
-          value={this.state.text}
-          onKeyPress={this.onSubmit}
+        <Header />
+        <Chat
+          clearText={this.clearText}
+          message={this.state.messages}
+          pseudo={event => this.setState({ pseudo: event.target.value })}
+          textChar={event => this.setState({ text: event.target.value })}
+          messagesText={this.props.messages}
+          textR={this.state.text}
+          pseudoR={this.state.pseudo}
+          messagesR={this.state.messages}
         />
         <Footer />
       </div>

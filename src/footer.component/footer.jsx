@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { ListItem } from "@material-ui/core";
 
+import { foo } from "./style.js";
+
 class Footer extends Component {
   constructor(props) {
     super(props);
@@ -24,16 +26,11 @@ class Footer extends Component {
   render() {
     return (
       <div
-        style={{
-          margin: "auto",
-          display: "inline-flex",
-          float: "right",
-          bottom: "0"
-        }}
+        style={ foo }
       >
         {this.state.list.map((list, i) => (
           <ListItem key={i}>
-            <a href={this.state.link[i]}>{list}</a>
+            <a href={this.state.link[i]} style={ foo.href }>{list}</a>
           </ListItem>
         ))}
       </div>
