@@ -8,8 +8,8 @@ class Footer extends Component {
     super(props);
 
     this.state = {
-        list: [],
-        link: []
+      list: [],
+      link: []
     };
   }
 
@@ -25,14 +25,16 @@ class Footer extends Component {
 
   render() {
     return (
-      <div
-        style={ foo }
-      >
-        {this.state.list.map((list, i) => (
-          <ListItem key={i}>
-            <a href={this.state.link[i]} style={ foo.href }>{list}</a>
-          </ListItem>
-        ))}
+      <div style={foo.container}>
+        <div style={foo}>
+          {this.state.list.map((list, i) => (
+            <ListItem key={i}>
+              <a href={this.state.link[i]} style={foo.href}>
+                {list}
+              </a>
+            </ListItem>
+          ))}
+        </div>
       </div>
     );
   }

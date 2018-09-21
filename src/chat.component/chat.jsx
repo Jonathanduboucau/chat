@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { TextField, ListItemText } from "@material-ui/core";
 import firebase from "../db.component/firebase.jsx";
 
-import { app } from "./style.js";
+import "./chat.css";
+import { app, input } from "./style.js";
 
 class Chat extends Component {
-
   writeMessageToDB = message => {
     firebase
       .database()
@@ -19,7 +19,7 @@ class Chat extends Component {
 
   renderMessages = () => {
     return this.props.message.map(message => (
-      <ListItemText key={message.id} style={{ lineHeight: "5px" }}>
+      <ListItemText children={15} key={message.id} style={{ lineHeight: "5px" }}>
         <div className="textMessages">
           <i style={{ color: "grey" }}>{message.time} </i>
           <b>{message.pseudo}</b> a dit :
@@ -38,8 +38,7 @@ class Chat extends Component {
     ) {
       this.writeMessageToDB(this.props.textR);
       this.props.clearText(this.props.clearText);
-    } 
-    else {
+    } else {
       if (
         this.props.pseudoR.length >= 3 &&
         this.props.textR === "" &&
@@ -58,7 +57,6 @@ class Chat extends Component {
         alert(
           "Attention ! Tu ne peux pas envoyer de message sans pseudo, sinon ça serait de la triche ! ;)"
         );
-        // this.setState({ text: this.props.text });
       }
       if (
         this.props.textR.length === 0 &&
@@ -75,24 +73,28 @@ class Chat extends Component {
 
   render() {
     return (
-      <div>
-        <div style={app.pseudo}>
+      <div style={{ margin: "auto" }}>
+        <div style={app.container} className="container">
+          {this.renderMessages()}
+        </div>
+        <div style={app.input}>
           <TextField
+            className="textFieldPseudo"
+            style={input.pseudo}
             label="Pseudo"
             placeholder="Entre ton pseudo"
             onChange={this.props.pseudo}
           />
+          <TextField
+            style={input.text}
+            required
+            autoFocus={true}
+            placeholder="Entre ton message ici ..."
+            onChange={this.props.textChar}
+            value={this.props.textR}
+            onKeyPress={this.onSubmit}
+          />
         </div>
-        <div style={app.container} className="container">
-          {this.renderMessages()}
-        </div>
-        <TextField
-          autoFocus={true}
-          placeholder="Message ..."
-          onChange={this.props.textChar}
-          value={this.props.textR}
-          onKeyPress={this.onSubmit}
-        />
       </div>
     );
   }

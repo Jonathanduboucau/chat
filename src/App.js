@@ -19,7 +19,7 @@ class App extends Component {
     this.clearText = this.clearText.bind(this);
   }
 
-  clearText(clear) {
+  clearText() {
     this.setState({ text: "", pseudo: this.state.pseudo });
   }
 
