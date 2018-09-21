@@ -13,18 +13,17 @@ class Chat extends Component {
       .push({
         text: message,
         pseudo: this.props.pseudoR,
-        time: new Date(Date.now()).toLocaleString()
+        time: new Date(Date.now()).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
       });
   };
 
   renderMessages = () => {
     return this.props.message.map(message => (
-      <ListItemText children={15} key={message.id} style={{ lineHeight: "5px" }}>
-        <div className="textMessages">
+      <ListItemText key={message.id} style={{ lineHeight: "5px" }}>
+        <div className="textMessages" style={{display: "block"}}>
           <i style={{ color: "grey" }}>{message.time} </i>
-          <b>{message.pseudo}</b> a dit :
         </div>
-        <span> {message.text}</span>
+        <b>{message.pseudo}</b> a dit :<span title={message.pseudo}> {message.text}</span>
       </ListItemText>
     ));
   };
