@@ -29,13 +29,11 @@ class Footer extends Component {
       <div style={foo.container}>
         <div style={foo}>
           {this.state.list.map((list, i) => (
-            <ul>
               <ListItem key={i}>
                 <a href={this.state.link[i]} style={foo.href}>
                   <img src={this.state.img[i]} width={25} /> {list}
                 </a>
               </ListItem>
-            </ul>
           ))}
         </div>
       </div>

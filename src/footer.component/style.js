@@ -5,7 +5,6 @@ const foo = {
   backgroundColor: "lightgrey",
   padding: "15px 0",
   margin: "50px 0 0 0",
-  backgroundColor: "lightGrey",
   href: {
     textDecoration: "none",
     textAlign: "right"
