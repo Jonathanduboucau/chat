@@ -3,17 +3,15 @@ const img = {
 }
 
 const app = {
-    spanH1: {
-      fontSize: "2.5em",
+    a: {
+      fontSize: "1.5em",
       fontFamily: "Arial, sans-serif",
-      textShadow: "0 0 2px white",
-      fontWeight: "bold",
-      margin: "0",
-      padding: "10px 0"
-    },
-    span: {
-      display: "inline",
-      marginLeft: "5px"
+      textDecoration: "none",
+      color: "rgba(40, 10, 50, 0.8)",
+      verticalAlign: "super",
+      ":hover": {
+        color: "white"
+      }
     },
     positionHeader: {
       textAlign: "left",

@@ -54,7 +54,7 @@ class App extends Component {
             <Header />
             <Switch>
               <Route exact path="/" />
-              <Route exact path="/sign" />
+              <Route exact path="/sign" component={Sign} />
             </Switch>
           </div>
         </BrowserRouter>

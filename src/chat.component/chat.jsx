@@ -50,11 +50,12 @@ class Chat extends Component {
 
   onSubmit = event => {
     if (
-      event.charCode === 13 &&
+      event.charCode === 13 &&  
       this.props.textR.trim() !== "" &&
       this.props.pseudoR !== "" &&
       this.props.pseudoR.length >= 3
     ) {
+      this.props.textR.replace(/(^\s*)|(\s*$)/g,'');
       this.writeMessageToDB(this.props.textR);
       this.props.clearText(this.props.clearText);
     } else {

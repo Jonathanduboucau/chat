@@ -3,8 +3,9 @@ import { slide as MyMenu } from "react-burger-menu";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import "./menu.css";
-import { img, app } from "./style.js";
+import { app } from "./style.js";
 import burger from "../img/burger.svg";
+import chat from "../img/chat.svg";
 
 class Header extends Component {
   state = {
@@ -19,16 +20,7 @@ class Header extends Component {
     return (
       <div>
         <header style={app.positionHeader} className="App-header">
-          <span style={app.spanH1}>Chat Living Room</span>
-          <span style={app.span}>
-            Made with
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/A_perfect_SVG_heart.svg/2000px-A_perfect_SVG_heart.svg.png"
-              alt="heart"
-              style={img}
-            />
-            by Jonathanduboucau
-          </span>
+        <img src={chat} width={40} /><a href="/" style={app.a}>Chat.Ex</a>
           <MyMenu
             right
             className="menu"
