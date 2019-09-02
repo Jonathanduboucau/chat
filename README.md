@@ -1,3 +1,7 @@
 # ChatApp whit React & Firebase
 
-App in progress ...
+start activity
+
+## Install dependancies
+run : npm install
+and then : npm start
